@@ -20,7 +20,7 @@ func sendChangedState(client *rpc.Client, state string) {
 
     // Performing the call
     var reply int
-    err := client.Call("HgNotify.FireTrigger", msg, &reply)
+    err := client.Call("HgNotify.Notify", msg, &reply)
     if err != nil {
         log.Fatal("crap:", err)
     }

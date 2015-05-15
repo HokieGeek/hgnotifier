@@ -34,7 +34,7 @@ func main() {
     // Performing the call
     var reply int
     client := jsonrpc.NewClient(conn)
-    err = client.Call("HgNotify.FireTrigger", msg, &reply)
+    err = client.Call("HgNotify.Notify", msg, &reply)
     if err != nil {
         log.Fatal("crap:", err)
     }

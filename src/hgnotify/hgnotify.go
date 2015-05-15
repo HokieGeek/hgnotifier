@@ -24,8 +24,8 @@ type HgNotify int
 
 // TODO: triggers := make(map[string]string, 0)
 
-func (t *HgNotify) FireTrigger(triggger *Trigger, reply *int) error {
-    fmt.Println("FireTrigger(", *triggger, ")")
+func (t *HgNotify) Notify(triggger *Trigger, reply *int) error {
+    fmt.Println("Notify(", *triggger, ")")
     // TODO: match Trigger.Name to the triggers map that has executables as values
     //       cmd := exec.Command(triggers[Trigger.Name], [Trigger.payload])
     return nil
