@@ -1,0 +1,5 @@
+[Unit]
+Description=HG Notifier
+
+[Service]
+ExecStart=/usr/bin/hgdaemon
