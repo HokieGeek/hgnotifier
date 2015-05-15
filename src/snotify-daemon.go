@@ -2,14 +2,14 @@ package main
 
 import (
 	"gopkg.in/yaml.v2"
-	"hgnotify"
+	"snotify"
 	"io/ioutil"
 )
 
 func main() {
 	// Load the configuration
 	// FIXME: the path can't be magical
-	configFile := "/home/andres/src/hgnotifier/hgnotifier.config"
+	configFile := "/home/andres/src/snotify/snotify.config"
 	configBuf, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		// fmt.Println(err)
@@ -18,7 +18,7 @@ func main() {
 
 	// fmt.Println(string(configBuf))
 
-	var config hgnotify.HgNotifierConfig
+	var config snotify.HgNotifierConfig
 	err = yaml.Unmarshal(configBuf, &config)
 	if err != nil {
 		panic("Could not unmarshal config")
@@ -28,8 +28,8 @@ func main() {
 	// I need for the control listener to communicate back with this dude
 	// TODO: figure out how to use channels to stop
 	stop := false
-	hgnotify.StartDataListener(config)
-	// hgnotify.StartControlListener(7778)
+	snotify.StartDataListener(config)
+	// snotify.StartControlListener(7778)
 
 	for {
 		if stop {

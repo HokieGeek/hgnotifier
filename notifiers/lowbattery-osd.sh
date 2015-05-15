@@ -1,6 +1,6 @@
 #!/bin/bash
 
-id="hgnotifier_lowbattery"
+id="snotify_lowbattery"
 
 function createConkyFile() {
 cat << EOF >> $1
@@ -11,8 +11,8 @@ out_to_x no
 update_interval 1
 
 TEXT
-\${texeci 1 date +%H:%M:%S }
-# \${texeci 1 acpi | head -1 | sed 's/.* \([0-9:]*\) .*/\1/g' }
+# \${texeci 1 date +%H:%M:%S }
+\${texeci 1 acpi | head -1 | sed 's/.* \([0-9:]*\) .*/\1/g' }
 EOF
 }
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"hgnotify"
+	"snotify"
 	"log"
 	"net"
 	"net/rpc/jsonrpc"
@@ -29,13 +29,13 @@ func main() {
 	defer conn.Close()
 
 	// Creating the message object
-	hdr := &hgnotify.Header{Timestamp: time.Now()}
-	msg := &hgnotify.Notification{Hdr: *hdr, Name: name, Payload: strings.Join(payload, " ")}
+	hdr := &snotify.Header{Timestamp: time.Now()}
+	msg := &snotify.Notification{Hdr: *hdr, Name: name, Payload: strings.Join(payload, " ")}
 
 	// Performing the call
 	var reply int
 	client := jsonrpc.NewClient(conn)
-	err = client.Call("HgNotify.Notify", msg, &reply)
+	err = client.Call("snotify.Notify", msg, &reply)
 	if err != nil {
 		log.Fatal("crap:", err)
 	}

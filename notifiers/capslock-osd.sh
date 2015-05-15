@@ -1,6 +1,6 @@
 #!/bin/sh
 
-id="hgnotifier_capslock"
+id="snotify_capslock"
 
 case $1 in
     on)

@@ -1,4 +1,4 @@
-package hgnotify
+package snotify
 
 import (
     "log"
@@ -36,12 +36,12 @@ type Notification struct {
 	Payload string
 }
 
-type HgNotify struct {
+type snotify struct {
 	notifiersPath string
 	notifiers     map[string][]string
 }
 
-func (t *HgNotify) Notify(notification *Notification, reply *int) error {
+func (t *snotify) Notify(notification *Notification, reply *int) error {
 	log.Println("Notify(", notification.Name, ")")
 	for _, notifier := range t.notifiers[notification.Name] {
 		log.Println(" notifier:", notifier)
@@ -73,10 +73,10 @@ func execNotifier2(notifier string, arguments string) {
 	}
 }
 
-func NewHgNotify(config HgNotifierConfig) *HgNotify {
-	n := new(HgNotify)
+func Newsnotify(config HgNotifierConfig) *snotify {
+	n := new(snotify)
 	// FIXME: The path of the notifiers can't be this magical
-	n.notifiersPath = "/home/andres/src/hgnotifier/notifiers/"
+	n.notifiersPath = "/home/andres/src/snotify/notifiers/"
 	n.notifiers = config.Notifiers
 	return n
 }
@@ -102,9 +102,9 @@ func startListener(port int) {
 }
 
 func StartDataListener(config HgNotifierConfig) {
-	hgnotify := NewHgNotify(config)
-	rpc.Register(hgnotify)
-	rpc.RegisterName("com.hokiegeek.hgnotifier", hgnotify)
+	snotify := Newsnotify(config)
+	rpc.Register(snotify)
+	rpc.RegisterName("com.hokiegeek.snotify", snotify)
 	rpc.HandleHTTP()
 
 	log.Println("Starting data listener on port:", config.Port)

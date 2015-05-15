@@ -1,7 +1,7 @@
 #!/bin/bash
 
 here=$(cd $(dirname $0); pwd)
-id="hgnotifier_bluetooth"
+id="snotify_bluetooth"
 
 case $1 in
     on)

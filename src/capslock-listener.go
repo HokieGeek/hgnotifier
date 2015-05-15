@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"hgnotify"
+	"snotify"
 	"log"
 	"net"
 	"net/rpc"
@@ -15,12 +15,12 @@ import (
 
 func sendChangedState(client *rpc.Client, state string) {
 	// Creating the message object
-	hdr := &hgnotify.Header{Timestamp: time.Now()}
-	msg := &hgnotify.Notification{Hdr: *hdr, Name: "capslock-state", Payload: state}
+	hdr := &snotify.Header{Timestamp: time.Now()}
+	msg := &snotify.Notification{Hdr: *hdr, Name: "capslock-state", Payload: state}
 
 	// Performing the call
 	var reply int
-	err := client.Call("HgNotify.Notify", msg, &reply)
+	err := client.Call("snotify.Notify", msg, &reply)
 	if err != nil {
 		log.Fatal("crap:", err)
 	}
