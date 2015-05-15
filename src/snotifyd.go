@@ -18,7 +18,7 @@ func main() {
 
 	// fmt.Println(string(configBuf))
 
-	var config snotify.HgNotifierConfig
+	var config snotify.SnotifyConfig
 	err = yaml.Unmarshal(configBuf, &config)
 	if err != nil {
 		panic("Could not unmarshal config")

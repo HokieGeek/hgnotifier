@@ -20,7 +20,7 @@ func sendChangedState(client *rpc.Client, state string) {
 
 	// Performing the call
 	var reply int
-	err := client.Call("snotify.Notify", msg, &reply)
+	err := client.Call("Snotify.Notify", msg, &reply)
 	if err != nil {
 		log.Fatal("crap:", err)
 	}

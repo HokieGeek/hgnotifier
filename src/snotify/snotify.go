@@ -13,15 +13,15 @@ import (
 	"time"
 )
 
-type HgNotifierScheme struct {
+type SnotifyScheme struct {
 	Bg string `yaml:"a,omitempty"`
 	Fg string `yaml:"a,omitempty"`
 	Fn string `yaml:"a,omitempty"`
 }
 
-type HgNotifierConfig struct {
+type SnotifyConfig struct {
 	Port      int
-	Scheme    HgNotifierScheme `yaml:"a,omitempty"`
+	Scheme    SnotifyScheme `yaml:"a,omitempty"`
 	Triggers  map[string][]string
 	Notifiers map[string][]string
 }
@@ -36,12 +36,12 @@ type Notification struct {
 	Payload string
 }
 
-type snotify struct {
+type Snotify struct {
 	notifiersPath string
 	notifiers     map[string][]string
 }
 
-func (t *snotify) Notify(notification *Notification, reply *int) error {
+func (t *Snotify) Notify(notification *Notification, reply *int) error {
 	log.Println("Notify(", notification.Name, ")")
 	for _, notifier := range t.notifiers[notification.Name] {
 		log.Println(" notifier:", notifier)
@@ -73,8 +73,8 @@ func execNotifier2(notifier string, arguments string) {
 	}
 }
 
-func Newsnotify(config HgNotifierConfig) *snotify {
-	n := new(snotify)
+func NewSnotify(config SnotifyConfig) *Snotify {
+	n := new(Snotify)
 	// FIXME: The path of the notifiers can't be this magical
 	n.notifiersPath = "/home/andres/src/snotify/notifiers/"
 	n.notifiers = config.Notifiers
@@ -101,8 +101,8 @@ func startListener(port int) {
 	}
 }
 
-func StartDataListener(config HgNotifierConfig) {
-	snotify := Newsnotify(config)
+func StartDataListener(config SnotifyConfig) {
+	snotify := NewSnotify(config)
 	rpc.Register(snotify)
 	rpc.RegisterName("com.hokiegeek.snotify", snotify)
 	rpc.HandleHTTP()
