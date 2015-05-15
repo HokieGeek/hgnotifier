@@ -1,2 +1,2 @@
-# system-notifier
-Simple script that wraps over osdnotifier to perform some basic system notifications
+# hgnotify
+Simple go daemon that I wrote to fix the problem where my laptop doesn't have any physical indicators for the state of caps lock or the bluetooth radio.

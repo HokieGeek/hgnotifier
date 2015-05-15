@@ -1,3 +1,0 @@
-[submodule "notifiers/osdnotifier"]
-	path = notifiers/osdnotifier
-	url = git@github.com:HokieGeek/osdnotifier
