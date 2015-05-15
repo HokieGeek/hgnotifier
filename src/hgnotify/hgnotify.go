@@ -4,7 +4,10 @@ import (
     "fmt"
     "log"
     "time"
+    "os"
     "os/exec"
+    "syscall"
+    // "io/ioutil"
 )
 
 type Header struct {
@@ -38,11 +41,23 @@ func NewHgNotify(config string) *HgNotify {
 }
 
 func execNotifier(notifier string, arguments string) {
-    log.Println("execing ", notifier, arguments)
-    cmd := exec.Command("/bin/sh", "-c", notifier, arguments)
+    // log.Println("execing ", notifier, arguments)
+    // cmd := exec.Command("/bin/sh", "-c", strings.Join([]string{notifier, arguments}, " ")
+    cmd := exec.Command(notifier, arguments)
+
     out,err := cmd.Output()
     if err != nil {
         log.Fatal("Error executing", notifier, err)
     }
     log.Println("Notifier out: ", out)
+}
+
+func execNotifier2(notifier string, arguments string) {
+    log.Println("execing ", notifier, arguments)
+    args := []string{notifier, arguments}
+
+    err := syscall.Exec(notifier, args, os.Environ())
+    if err != nil {
+        log.Panic("Could not call notifier", err)
+    }
 }
