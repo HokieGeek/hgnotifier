@@ -3,7 +3,7 @@
 id="hgnotifier_capslock"
 
 case $1 in
-    --show)
+    on)
         echo "A" | dzen2 -p -title-name ${id} \
                             -fn '-*-terminus-bold-r-*-*-15-*-*-*-*-*-*-*' \
                             -fg "#005f00" -bg "#000000" \
@@ -11,5 +11,5 @@ case $1 in
                              -e 'raise'&
         sleep .1s && transset-df --name ${id} .65 >/dev/null 2>&1
         ;;
-    --hide) pkill -f ${id} ;;
+    off) pkill -f ${id} ;;
 esac
