@@ -9,7 +9,7 @@ import (
 func main() {
 	// Load the configuration
 	// FIXME: the path can't be magical
-	configFile := "/home/aperez/src/hgnotifier/hgnotifier.config"
+	configFile := "/home/andres/src/hgnotifier/hgnotifier.config"
 	configBuf, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		// fmt.Println(err)

@@ -76,7 +76,7 @@ func execNotifier2(notifier string, arguments string) {
 func NewHgNotify(config HgNotifierConfig) *HgNotify {
 	n := new(HgNotify)
 	// FIXME: The path of the notifiers can't be this magical
-	n.notifiersPath = "/home/aperez/src/hgnotifier/notifiers/"
+	n.notifiersPath = "/home/andres/src/hgnotifier/notifiers/"
 	n.notifiers = config.Notifiers
 	return n
 }
