@@ -12,12 +12,13 @@ import (
 )
 
 func main() {
-    input := os.Args[1:]
-
-    if len(input) <= 0 {
+    if len(os.Args[1:]) <= 0 {
         fmt.Println("Can't send blank, idiot")
         return
     }
+
+    name := os.Args[1]
+    payload := os.Args[2:]
 
     // Connecting
     conn, err := net.Dial("tcp", "localhost:7777")
@@ -28,15 +29,15 @@ func main() {
 
     // Creating the message object
     hdr := &hgnotify.Header{Timestamp: time.Now()}
-    msg := &hgnotify.Msg{Hdr: *hdr, Payload: strings.Join(input, " ")}
+    msg := &hgnotify.Trigger{Hdr: *hdr, Name: name, Payload: strings.Join(payload, " ")}
 
     // Performing the call
     var reply int
     client := jsonrpc.NewClient(conn)
-    err = client.Call("HgNotify.SendMsg", msg, &reply)
+    err = client.Call("HgNotify.FireTrigger", msg, &reply)
     if err != nil {
         log.Fatal("crap:", err)
     }
 
-    fmt.Println("sent message:", input)
+    fmt.Println("sent message:", name, payload)
 }
