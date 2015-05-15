@@ -16,7 +16,7 @@ import (
 func sendChangedState(client *rpc.Client, state string) {
     // Creating the message object
     hdr := &hgnotify.Header{Timestamp: time.Now()}
-    msg := &hgnotify.Trigger{Hdr: *hdr, Name: "capslock-state", Payload: state}
+    msg := &hgnotify.Notification{Hdr: *hdr, Name: "capslock-state", Payload: state}
 
     // Performing the call
     var reply int

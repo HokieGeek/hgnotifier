@@ -27,21 +27,12 @@ func startListener(port int) {
 }
 
 func StartDataListener(port int) {
-    rpc.Register(new(HgNotify))
-    rpc.RegisterName("com.hokiegeek.hgnotify", new(HgNotify))
+    hgnotify := NewHgNotify("blah")
+    rpc.Register(hgnotify)
+    rpc.RegisterName("com.hokiegeek.hgnotify", hgnotify)
     rpc.HandleHTTP()
 
     log.Println("Starting data listener on port:", port)
-
-    startListener(port)
-}
-
-func StartControlListener(port int) {
-    rpc.Register(new(HgNotifyCtrl))
-    rpc.RegisterName("com.hokiegeek.hgnotify.control", new(HgNotifyCtrl))
-    rpc.HandleHTTP()
-
-    log.Println("Starting control listener on port:", port)
 
     startListener(port)
 }

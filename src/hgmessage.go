@@ -29,7 +29,7 @@ func main() {
 
     // Creating the message object
     hdr := &hgnotify.Header{Timestamp: time.Now()}
-    msg := &hgnotify.Trigger{Hdr: *hdr, Name: name, Payload: strings.Join(payload, " ")}
+    msg := &hgnotify.Notification{Hdr: *hdr, Name: name, Payload: strings.Join(payload, " ")}
 
     // Performing the call
     var reply int
