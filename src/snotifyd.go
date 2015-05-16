@@ -5,9 +5,20 @@ import (
 	"snotify"
 	"io/ioutil"
     "fmt"
+    "os"
+    // "os/exec"
+    "path"
 )
 
 func main() {
+    // exec.LookPath(os.Args[0])))
+    // fmt.Println("TEST:", path.Dir(os.Args[0]))
+    dir,err := os.Getwd()
+    if err != nil {
+        panic("WHERE AM I?!")
+    }
+    fmt.Println(path.Dir(dir))
+
 	// Load the configuration
 	// FIXME: the path can't be magical
 	configFile := "/usr/etc/snotify.config"
