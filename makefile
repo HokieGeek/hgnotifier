@@ -7,8 +7,8 @@ all: daemon clients
 daemon: src/snotifyd.go src/snotify/snotify.go
 	go build -o bin/snotifyd src/snotifyd.go 
 
-clients: src/capslock-listener.go src/snotify-message.go
-	go build -o bin/capslock-listener src/capslock-listener.go
+clients: src/snotify-capslockd.go src/snotify-message.go
+	go build -o bin/snotify-capslockd src/snotify-capslockd.go
 	go build -o bin/snotify-message src/snotify-message.go
 
 clean:
@@ -19,8 +19,8 @@ install:
 	# @echo "TODO: install_dir = $(install_dir)"
 	install -Dm755 bin/snotifyd $(DESTDIR)$(PREFIX)/bin/snotifyd
 	install -Dm755 bin/snotify-message $(DESTDIR)$(PREFIX)/bin/snotify-message
-	install -Dm755 bin/capslock-listener $(DESTDIR)$(PREFIX)/bin/capslock-listener
-	install -Dm644 config/snotify.config $(DESTDIR)$(PREFIX)/etc/snotify/snotify.config
+	install -Dm755 bin/snotfiy-capslockd $(DESTDIR)$(PREFIX)/bin/snotify-capslockd
+	install -Dm644 config/snotify.config $(DESTDIR)$(PREFIX)/etc/snotify.config
 	install -Dm644 systemd/snotify.service $(DESTDIR)$(PREFIX)/lib/systemd/system/snotify.service
 
 .PHONY: all daemon clients clean install
