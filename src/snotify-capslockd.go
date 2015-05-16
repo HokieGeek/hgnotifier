@@ -2,17 +2,17 @@ package main
 
 import (
 	"fmt"
-	"snotify"
 	"gopkg.in/yaml.v2"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
 	"os/exec"
+	"snotify"
+	"strconv"
 	"strings"
-    "strconv"
 	"time"
-	"io/ioutil"
 )
 
 func sendChangedState(client *rpc.Client, state string) {
@@ -70,7 +70,7 @@ func main() {
 		panic("Could not unmarshal config")
 	}
 
-    address := "localhost:" + strconv.Itoa(config.Port)
+	address := "localhost:" + strconv.Itoa(config.Port)
 
 	// Create the connection
 	log.Print("Connecting to: ", address)

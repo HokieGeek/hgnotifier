@@ -1,14 +1,14 @@
 package snotify
 
 import (
-    "log"
-    "net"
-    "net/rpc"
-    "net/rpc/jsonrpc"
+	"log"
+	"net"
+	"net/rpc"
+	"net/rpc/jsonrpc"
 	"os"
 	"os/exec"
 	"path"
-    "strconv"
+	"strconv"
 	"syscall"
 	"time"
 )

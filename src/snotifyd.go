@@ -1,23 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"gopkg.in/yaml.v2"
-	"snotify"
 	"io/ioutil"
-    "fmt"
-    "os"
-    // "os/exec"
-    "path"
+	"os"
+	"snotify"
+	// "os/exec"
+	"path"
 )
 
 func main() {
-    // exec.LookPath(os.Args[0])))
-    // fmt.Println("TEST:", path.Dir(os.Args[0]))
-    dir,err := os.Getwd()
-    if err != nil {
-        panic("WHERE AM I?!")
-    }
-    fmt.Println(path.Dir(dir))
+	// exec.LookPath(os.Args[0])))
+	// fmt.Println("TEST:", path.Dir(os.Args[0]))
+	dir, err := os.Getwd()
+	if err != nil {
+		panic("WHERE AM I?!")
+	}
+	fmt.Println(path.Dir(dir))
 
 	// Load the configuration
 	// FIXME: the path can't be magical

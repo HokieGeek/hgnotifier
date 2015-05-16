@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"snotify"
 	"log"
 	"net"
 	"net/rpc/jsonrpc"
 	"os"
+	"snotify"
 	"strings"
 	"time"
 )
