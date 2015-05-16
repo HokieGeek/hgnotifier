@@ -8,7 +8,6 @@ import (
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
-	"os"
 	"os/exec"
 	"path"
 	"snotify"
@@ -60,12 +59,9 @@ func pollCapsLockState(stateChange func(state string)) {
 
 func main() {
 	// Load the configuration
-	dir, err := os.Getwd()
-	if err != nil {
-		panic("WHERE AM I?!")
-	}
-
-	configFile := path.Join(path.Dir(dir), "/etc/snotify.config")
+	// FIXME: sure hate this...
+	base := "/usr"
+	configFile := path.Join(base, "/etc/snotify.config")
 	configBuf, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		// fmt.Println(err)

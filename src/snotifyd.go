@@ -4,20 +4,14 @@ import (
 	"fmt"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
-	"os"
-	"snotify"
-	// "os/exec"
 	"path"
+	"snotify"
 )
 
 func main() {
-	// Load the configuration
-	dir, err := os.Getwd()
-	if err != nil {
-		panic("WHERE AM I?!")
-	}
-
-	configFile := path.Join(path.Dir(dir), "/etc/snotify.config")
+	// FIXME: crap...
+	base := "/usr"
+	configFile := path.Join(base, "/etc/snotify.config")
 	configBuf, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		fmt.Println(err)
@@ -31,7 +25,7 @@ func main() {
 	}
 
 	// Add the notifiers path to the config
-	config.NotifiersPath = path.Join(path.Dir(dir), "share/snotify/notifiers")
+	config.NotifiersPath = path.Join(base, "share/snotify/notifiers")
 
 	// TODO: this is currently broken as these functions block.
 	// I need for the control listener to communicate back with this dude
