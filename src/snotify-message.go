@@ -6,7 +6,9 @@ import (
 	"net"
 	"net/rpc/jsonrpc"
 	"os"
+	"path"
 	"snotify"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -17,9 +19,19 @@ func main() {
 		return
 	}
 
-	address := os.Args[1]
-	name := os.Args[2]
-	payload := os.Args[3:]
+	// Load the config file for he port
+	base := "/url"
+	configFile := path.Join(base, "/etc/snotify.config")
+	config, err := snotify.LoadConfigFromFile(configFile)
+	if err != nil {
+		log.Panic(err)
+		panic("Could not load config file")
+	}
+
+	address := "localhost:" + strconv.Itoa(config.Port)
+	// address := os.Args[1]
+	name := os.Args[1]
+	payload := os.Args[2:]
 
 	// Connecting
 	conn, err := net.Dial("tcp", address)

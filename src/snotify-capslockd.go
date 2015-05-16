@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
 	"log"
 	"net"
 	"net/rpc"
@@ -62,16 +60,10 @@ func main() {
 	// FIXME: sure hate this...
 	base := "/usr"
 	configFile := path.Join(base, "/etc/snotify.config")
-	configBuf, err := ioutil.ReadFile(configFile)
+	config, err := snotify.LoadConfigFromFile(configFile)
 	if err != nil {
-		// fmt.Println(err)
-		panic("Could not read config file")
-	}
-
-	var config snotify.SnotifyConfig
-	err = yaml.Unmarshal(configBuf, &config)
-	if err != nil {
-		panic("Could not unmarshal config")
+		log.Panic(err)
+		panic("Could not load config file")
 	}
 
 	address := "localhost:" + strconv.Itoa(config.Port)

@@ -1,4 +1,12 @@
-#!/bin/sh
+#!/bin/bash
+
+exec >> /tmp/snotify.log 2>&1
+echo ""
+date
+echo "$0 $*"
+
+echo "display: $DISPLAY"
+# export DISPLAY=:0.0
 
 id="snotify_capslock"
 

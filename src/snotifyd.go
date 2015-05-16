@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
+	"log"
 	"path"
 	"snotify"
 )
@@ -12,16 +10,10 @@ func main() {
 	// FIXME: crap...
 	base := "/usr"
 	configFile := path.Join(base, "/etc/snotify.config")
-	configBuf, err := ioutil.ReadFile(configFile)
+	config, err := snotify.LoadConfigFromFile(configFile)
 	if err != nil {
-		fmt.Println(err)
-		panic("Could not read config file")
-	}
-
-	var config snotify.SnotifyConfig
-	err = yaml.Unmarshal(configBuf, &config)
-	if err != nil {
-		panic("Could not unmarshal config")
+		log.Panic(err)
+		panic("Could not load config file")
 	}
 
 	// Add the notifiers path to the config

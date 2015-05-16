@@ -29,5 +29,8 @@ install:
 	install -Dm644 notifiers/bt.xbm $(DESTDIR)$(PREFIX)/share/snotify/notifiers/bt.xbm
 	install -Dm755 notifiers/capslock-osd.sh $(DESTDIR)$(PREFIX)/share/snotify/notifiers/capslock-osd.sh
 	install -Dm755 notifiers/lowbattery-osd.sh $(DESTDIR)$(PREFIX)/share/snotify/notifiers/lowbattery-osd.sh
+	@echo "Installing triggers"
+	install -Dm755 triggers/bluetooth-state.sh $(DESTDIR)$(PREFIX)/share/snotify/triggers/bluetooth-state.sh
+	install -Dm755 triggers/low-battery.sh $(DESTDIR)$(PREFIX)/share/snotify/triggers/low-battery.sh
 
 .PHONY: all clean install

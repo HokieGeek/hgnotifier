@@ -1,5 +1,10 @@
 #!/bin/bash
 
+exec >> /tmp/snotify.log 2>&1
+echo ""
+date
+echo "$0 $*"
+
 here=$(cd $(dirname $0); pwd)
 id="snotify_bluetooth"
 

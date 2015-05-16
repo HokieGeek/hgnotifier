@@ -1,6 +1,8 @@
 package snotify
 
 import (
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/rpc"
@@ -23,6 +25,22 @@ type SnotifyConfig struct {
 	Triggers      map[string][]string
 	Notifiers     map[string][]string
 	NotifiersPath string
+}
+
+func LoadConfigFromFile(file string) (SnotifyConfig, error) {
+	configBuf, err := ioutil.ReadFile(file)
+	if err != nil {
+		// fmt.Println(err)
+		panic("Could not read config file")
+	}
+
+	var config SnotifyConfig
+	err = yaml.Unmarshal(configBuf, &config)
+	if err != nil {
+		panic("Could not unmarshal config")
+	}
+
+	return config, err
 }
 
 type Header struct {
