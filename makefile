@@ -22,7 +22,7 @@ install:
 	install -Dm755 bin/snotify-capslockd $(DESTDIR)$(PREFIX)/bin/snotify-capslockd
 	install -Dm755 bin/snotify-message $(DESTDIR)$(PREFIX)/bin/snotify-message
 	@echo "Installing configs"
-	install -Dm644 config/snotify.config $(DESTDIR)$(PREFIX)/etc/snotify.config
+	install -Dm644 etc/snotify.config $(DESTDIR)$(PREFIX)/etc/snotify.config
 	# install -Dm644 systemd/snotify.service $(DESTDIR)/usr/lib/systemd/system/snotify.service
 	@echo "Installing notifiers"
 	install -Dm755 notifiers/bluetooth-osd.sh $(DESTDIR)$(PREFIX)/share/snotify/notifiers/bluetooth-osd.sh
