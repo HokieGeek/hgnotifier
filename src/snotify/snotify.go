@@ -1,6 +1,7 @@
 package snotify
 
 import (
+	"fmt"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
@@ -30,7 +31,7 @@ type SnotifyConfig struct {
 func LoadConfigFromFile(file string) (SnotifyConfig, error) {
 	configBuf, err := ioutil.ReadFile(file)
 	if err != nil {
-		// fmt.Println(err)
+		fmt.Println(err)
 		panic("Could not read config file")
 	}
 

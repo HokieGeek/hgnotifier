@@ -1,3 +1,3 @@
 #!/bin/sh
 
-snotify-message localhost:7777 bluetooth-state $1
+snotify-message bluetooth-state $1

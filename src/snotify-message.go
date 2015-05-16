@@ -20,7 +20,7 @@ func main() {
 	}
 
 	// Load the config file for he port
-	base := "/url"
+	base := "/usr"
 	configFile := path.Join(base, "/etc/snotify.config")
 	config, err := snotify.LoadConfigFromFile(configFile)
 	if err != nil {
@@ -47,7 +47,7 @@ func main() {
 	// Performing the call
 	var reply int
 	client := jsonrpc.NewClient(conn)
-	err = client.Call("snotify.Notify", msg, &reply)
+	err = client.Call("Snotify.Notify", msg, &reply)
 	if err != nil {
 		log.Fatal("crap:", err)
 	}
