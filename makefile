@@ -18,6 +18,8 @@ clean:
 
 install:
 	# @echo "TODO: install_dir = $(install_dir)"
+	@echo "HERE: ${PWD}"
+	ls bin
 	install -Dm755 bin/snotifyd $(DESTDIR)$(PREFIX)/bin/snotifyd
 	install -Dm755 bin/snotfiy-capslockd $(DESTDIR)$(PREFIX)/bin/snotify-capslockd
 	install -Dm755 bin/snotify-message $(DESTDIR)$(PREFIX)/bin/snotify-message
