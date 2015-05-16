@@ -5,25 +5,24 @@ import (
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
-	"os"
 	"os/exec"
 	"path"
 	"strconv"
-	"syscall"
 	"time"
 )
 
 type SnotifyScheme struct {
-	Bg string `yaml:"a,omitempty"`
-	Fg string `yaml:"a,omitempty"`
-	Fn string `yaml:"a,omitempty"`
+	Bg string
+	Fg string
+	Fn string
 }
 
 type SnotifyConfig struct {
-	Port      int
-	Scheme    SnotifyScheme `yaml:"a,omitempty"`
-	Triggers  map[string][]string
-	Notifiers map[string][]string
+	Port          int
+	Scheme        SnotifyScheme
+	Triggers      map[string][]string
+	Notifiers     map[string][]string
+	NotifiersPath string
 }
 
 type Header struct {
@@ -37,15 +36,14 @@ type Notification struct {
 }
 
 type Snotify struct {
-	notifiersPath string
-	notifiers     map[string][]string
+	config SnotifyConfig
 }
 
 func (t *Snotify) Notify(notification *Notification, reply *int) error {
 	log.Println("Notify(", notification.Name, ")")
-	for _, notifier := range t.notifiers[notification.Name] {
+	for _, notifier := range t.config.Notifiers[notification.Name] {
 		log.Println(" notifier:", notifier)
-		exec := path.Join(t.notifiersPath, notifier)
+		exec := path.Join(t.config.NotifiersPath, notifier)
 		go execNotifier(exec, notification.Payload)
 	}
 	return nil
@@ -63,28 +61,19 @@ func execNotifier(notifier string, arguments string) {
 	// log.Println("Notifier out: ", out)
 }
 
-func execNotifier2(notifier string, arguments string) {
-	log.Println("execing ", notifier, arguments)
-	args := []string{notifier, arguments}
-
-	err := syscall.Exec(notifier, args, os.Environ())
-	if err != nil {
-		log.Panic("Could not call notifier", err)
-	}
-}
-
 func NewSnotify(config SnotifyConfig) *Snotify {
 	n := new(Snotify)
-	// FIXME: The path of the notifiers can't be this magical
-	n.notifiersPath = "/home/andres/src/snotify/notifiers/"
-	n.notifiers = config.Notifiers
+	n.config = config
 	return n
 }
 
 // BLAH
 
+// func startListener(port int, stop chan<- bool) {
 func startListener(port int) {
 	address := ":" + strconv.Itoa(port)
+
+	// defer func() { stop <- true }
 
 	l, e := net.Listen("tcp", address)
 	if e != nil {

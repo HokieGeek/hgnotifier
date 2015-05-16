@@ -11,17 +11,13 @@ import (
 )
 
 func main() {
-	// exec.LookPath(os.Args[0])))
-	// fmt.Println("TEST:", path.Dir(os.Args[0]))
+	// Load the configuration
 	dir, err := os.Getwd()
 	if err != nil {
 		panic("WHERE AM I?!")
 	}
-	fmt.Println(path.Dir(dir))
 
-	// Load the configuration
-	// FIXME: the path can't be magical
-	configFile := "/usr/etc/snotify.config"
+	configFile := path.Join(path.Dir(dir), "/etc/snotify.config")
 	configBuf, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		fmt.Println(err)
@@ -33,6 +29,9 @@ func main() {
 	if err != nil {
 		panic("Could not unmarshal config")
 	}
+
+	// Add the notifiers path to the config
+	config.NotifiersPath = path.Join(path.Dir(dir), "share/snotify/notifiers")
 
 	// TODO: this is currently broken as these functions block.
 	// I need for the control listener to communicate back with this dude

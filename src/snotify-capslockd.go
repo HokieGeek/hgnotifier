@@ -57,7 +57,13 @@ func pollCapsLockState(stateChange func(state string)) {
 }
 
 func main() {
-	configFile := "/usr/etc/snotify.config"
+	// Load the configuration
+	dir, err := os.Getwd()
+	if err != nil {
+		panic("WHERE AM I?!")
+	}
+
+	configFile := path.Join(path.Dir(dir), "/etc/snotify.config")
 	configBuf, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		// fmt.Println(err)
