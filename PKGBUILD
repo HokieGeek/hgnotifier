@@ -1,15 +1,15 @@
 # Maintainer: Andres Perez <andres.f.perez@gmail.com>
 
-pkgname=hgnotifier-git
-_pkgname=hgnotifier
+pkgname=snotify-git
+_pkgname=snotify
 epoch=1
 pkgver=0
 pkgrel=1
 pkgdesc='Provides a notification framework'
-url='http://github.com/HokieGeek/hgnotifier'
+url='http://github.com/HokieGeek/snotify'
 arch=('i686' 'x86_64')
 license=('MIT')
-source=('git://github.com/HokieGeek/hgnotifier.git')
+source=('git://github.com/HokieGeek/snotify.git')
 sha1sums=('SKIP')
 
 provides=("${_pkgname}")
