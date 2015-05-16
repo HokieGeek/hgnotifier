@@ -4,19 +4,18 @@ import (
 	"gopkg.in/yaml.v2"
 	"snotify"
 	"io/ioutil"
+    "fmt"
 )
 
 func main() {
 	// Load the configuration
 	// FIXME: the path can't be magical
-	configFile := "/home/andres/src/snotify/snotify.config"
+	configFile := "/usr/etc/snotify.config"
 	configBuf, err := ioutil.ReadFile(configFile)
 	if err != nil {
-		// fmt.Println(err)
+		fmt.Println(err)
 		panic("Could not read config file")
 	}
-
-	// fmt.Println(string(configBuf))
 
 	var config snotify.SnotifyConfig
 	err = yaml.Unmarshal(configBuf, &config)

@@ -3,14 +3,16 @@ package main
 import (
 	"fmt"
 	"snotify"
+	"gopkg.in/yaml.v2"
 	"log"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
-	"os"
 	"os/exec"
 	"strings"
+    "strconv"
 	"time"
+	"io/ioutil"
 )
 
 func sendChangedState(client *rpc.Client, state string) {
@@ -55,7 +57,20 @@ func pollCapsLockState(stateChange func(state string)) {
 }
 
 func main() {
-	address := os.Args[1]
+	configFile := "/usr/etc/snotify.config"
+	configBuf, err := ioutil.ReadFile(configFile)
+	if err != nil {
+		// fmt.Println(err)
+		panic("Could not read config file")
+	}
+
+	var config snotify.SnotifyConfig
+	err = yaml.Unmarshal(configBuf, &config)
+	if err != nil {
+		panic("Could not unmarshal config")
+	}
+
+    address := "localhost:" + strconv.Itoa(config.Port)
 
 	// Create the connection
 	log.Print("Connecting to: ", address)
