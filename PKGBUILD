@@ -22,6 +22,7 @@ pkgver() {
 
 build() {
     cd "${srcdir}/${_pkgname}"
+    git submodule update --init
     make
 }
 
