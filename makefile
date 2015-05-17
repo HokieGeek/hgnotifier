@@ -34,4 +34,20 @@ install:
 	install -Dm755 triggers/bluetooth-state.sh $(DESTDIR)$(PREFIX)/share/snotify/triggers/bluetooth-state.sh
 	install -Dm755 triggers/low-battery.sh $(DESTDIR)$(PREFIX)/share/snotify/triggers/low-battery.sh
 
-.PHONY: all clean install
+uninstall:
+	@echo "Uninstalling daemons"
+	rm -rf $(DESTDIR)$(PREFIX)/bin/snotifyd
+	rm -rf $(DESTDIR)$(PREFIX)/bin/snotifyctl
+	rm -rf $(DESTDIR)$(PREFIX)/bin/snotify-message
+	rm -rf $(DESTDIR)$(PREFIX)/bin/snotify-capslockd
+	@echo "Uninstalling configs"
+	rm -rf $(DESTDIR)$(PREFIX)/etc/snotify.config
+	@echo "Uninstalling notifiers"
+	rm -rf $(DESTDIR)$(PREFIX)/share/snotify/notifiers/bluetooth-osd.sh
+	rm -rf $(DESTDIR)$(PREFIX)/share/snotify/notifiers/bt.xbm
+	rm -rf $(DESTDIR)$(PREFIX)/share/snotify/notifiers/capslock-osd.sh
+	rm -rf $(DESTDIR)$(PREFIX)/share/snotify/notifiers/lowbattery-osd.sh
+	@echo "Uninstalling triggers"
+	rm -rf $(DESTDIR)$(PREFIX)/share/snotify/triggers/bluetooth-state.sh
+	rm -rf $(DESTDIR)$(PREFIX)/share/snotify/triggers/low-battery.sh
+.PHONY: all clean install uninstall
