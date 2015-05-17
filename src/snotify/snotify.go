@@ -10,6 +10,7 @@ import (
 	"net/rpc/jsonrpc"
 	"os/exec"
 	"path"
+	"runtime"
 	"strconv"
 	"time"
 )
@@ -88,11 +89,8 @@ func NewSnotify(config SnotifyConfig) *Snotify {
 
 // BLAH
 
-// func startListener(port int, stop chan<- bool) {
 func startListener(port int) {
 	address := ":" + strconv.Itoa(port)
-
-	// defer func() { stop <- true }
 
 	l, e := net.Listen("tcp", address)
 	if e != nil {
@@ -105,6 +103,7 @@ func startListener(port int) {
 			log.Fatal(err)
 		}
 
+		runtime.Gosched()
 		go rpc.ServeCodec(jsonrpc.NewServerCodec(conn))
 	}
 }

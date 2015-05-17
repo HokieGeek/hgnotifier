@@ -7,10 +7,10 @@ all: snotifyd snotify-message snotify-capslockd
 snotifyd: src/snotifyd.go src/snotify/snotify.go
 	go build -o bin/snotifyd src/snotifyd.go 
 
-snotify-message: src/snotify-message.go
+snotify-message: src/snotify-message.go src/snotify/snotify.go
 	go build -o bin/snotify-message src/snotify-message.go
 
-snotify-capslockd: src/snotify-capslockd.go
+snotify-capslockd: src/snotify-capslockd.go src/snotify/snotify.go
 	go build -o bin/snotify-capslockd src/snotify-capslockd.go
 
 clean:
@@ -19,8 +19,9 @@ clean:
 install:
 	@echo "Installing daemons"
 	install -Dm755 bin/snotifyd $(DESTDIR)$(PREFIX)/bin/snotifyd
-	install -Dm755 bin/snotify-capslockd $(DESTDIR)$(PREFIX)/bin/snotify-capslockd
+	install -Dm755 scripts/snotifyctl $(DESTDIR)$(PREFIX)/bin/snotifyctl
 	install -Dm755 bin/snotify-message $(DESTDIR)$(PREFIX)/bin/snotify-message
+	install -Dm755 bin/snotify-capslockd $(DESTDIR)$(PREFIX)/bin/snotify-capslockd
 	@echo "Installing configs"
 	install -Dm644 etc/snotify.config $(DESTDIR)$(PREFIX)/etc/snotify.config
 	# install -Dm644 systemd/snotify.service $(DESTDIR)/usr/lib/systemd/system/snotify.service

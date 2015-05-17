@@ -1,8 +1,0 @@
-[Unit]
-Description=Snotify daemon
-
-[Service]
-ExecStart=/usr/bin/snotifyd
-
-[Install]
-WantedBy=multi-user.target
