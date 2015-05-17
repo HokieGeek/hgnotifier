@@ -41,7 +41,7 @@ func getCapsLockState() string {
 func pollCapsLockState(stateChange func(state string)) {
 	lastState := "off"
 
-	ticker := time.NewTicker(time.Millisecond * 350)
+	ticker := time.NewTicker(time.Millisecond * 125)
 	for {
 		select {
 		case <-ticker.C:
