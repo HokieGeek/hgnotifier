@@ -2,15 +2,15 @@ export GOPATH := ${PWD}
 
 install_dir := $(DESTDIR)/$(PREFIX)
 
-all: snotifyd snotify-message snotify-capslockd 
+all: bin/snotifyd bin/snotify-message bin/snotify-capslockd 
 
-snotifyd: src/snotifyd.go src/snotify/snotify.go
+bin/snotifyd: src/snotifyd.go src/snotify/snotify.go
 	go build -o bin/snotifyd src/snotifyd.go 
 
-snotify-message: src/snotify-message.go src/snotify/snotify.go
+bin/snotify-message: src/snotify-message.go src/snotify/snotify.go
 	go build -o bin/snotify-message src/snotify-message.go
 
-snotify-capslockd: src/snotify-capslockd.go src/snotify/snotify.go
+bin/snotify-capslockd: src/snotify-capslockd.go src/snotify/snotify.go
 	go build -o bin/snotify-capslockd src/snotify-capslockd.go
 
 clean:
@@ -22,9 +22,8 @@ install:
 	install -Dm755 scripts/snotifyctl $(DESTDIR)$(PREFIX)/bin/snotifyctl
 	install -Dm755 bin/snotify-message $(DESTDIR)$(PREFIX)/bin/snotify-message
 	install -Dm755 bin/snotify-capslockd $(DESTDIR)$(PREFIX)/bin/snotify-capslockd
-	@echo "Installing configs"
+	@echo "Installing config"
 	install -Dm644 etc/snotify.config $(DESTDIR)$(PREFIX)/etc/snotify.config
-	# install -Dm644 systemd/snotify.service $(DESTDIR)/usr/lib/systemd/system/snotify.service
 	@echo "Installing notifiers"
 	install -Dm755 notifiers/bluetooth-osd.sh $(DESTDIR)$(PREFIX)/share/snotify/notifiers/bluetooth-osd.sh
 	install -Dm644 notifiers/bt.xbm $(DESTDIR)$(PREFIX)/share/snotify/notifiers/bt.xbm
