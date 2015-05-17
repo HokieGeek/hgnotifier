@@ -9,7 +9,6 @@ import (
 	"path"
 	"snotify"
 	"strconv"
-	"strings"
 	"time"
 )
 
@@ -42,7 +41,7 @@ func main() {
 
 	// Creating the message object
 	hdr := &snotify.Header{Timestamp: time.Now()}
-	msg := &snotify.Notification{Hdr: *hdr, Name: name, Payload: strings.Join(payload, " ")}
+	msg := &snotify.Notification{Hdr: *hdr, Name: name, Payload: payload}
 
 	// Performing the call
 	var reply int

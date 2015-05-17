@@ -17,7 +17,7 @@ import (
 func sendChangedState(client *rpc.Client, state string) {
 	// Creating the message object
 	hdr := &snotify.Header{Timestamp: time.Now()}
-	msg := &snotify.Notification{Hdr: *hdr, Name: "capslock-state", Payload: state}
+	msg := &snotify.Notification{Hdr: *hdr, Name: "capslock-state", Payload: []string{state}}
 
 	// Performing the call
 	var reply int
@@ -57,13 +57,11 @@ func pollCapsLockState(stateChange func(state string)) {
 
 func main() {
 	// Load the configuration
-	// FIXME: sure hate this...
 	base := "/usr"
 	configFile := path.Join(base, "/etc/snotify.config")
 	config, err := snotify.LoadConfigFromFile(configFile)
 	if err != nil {
-		log.Panic(err)
-		panic("Could not load config file")
+		panic(err)
 	}
 
 	address := "localhost:" + strconv.Itoa(config.Port)
@@ -72,7 +70,7 @@ func main() {
 	log.Print("Connecting to: ", address)
 	conn, err := net.Dial("tcp", address)
 	if err != nil {
-		log.Fatal("dialing:", err)
+		panic(err)
 	}
 	defer conn.Close()
 	// FIXME: if the connection fails, it should attempt to reconnect forever

@@ -12,6 +12,7 @@ import (
 	"path"
 	"runtime"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -52,7 +53,7 @@ type Header struct {
 type Notification struct {
 	Hdr     Header
 	Name    string
-	Payload string
+	Payload []string
 }
 
 type Snotify struct {
@@ -69,10 +70,10 @@ func (t *Snotify) Notify(notification *Notification, reply *int) error {
 	return nil
 }
 
-func execNotifier(notifier string, arguments string) {
+func execNotifier(notifier string, arguments []string) {
 	// log.Println("execing ", notifier, arguments)
 	// cmd := exec.Command("/bin/sh", "-c", strings.Join([]string{notifier, arguments}, " ")
-	cmd := exec.Command(notifier, arguments)
+	cmd := exec.Command(notifier, strings.Join(arguments, " ")) // TODO: that join...
 
 	_, err := cmd.CombinedOutput()
 	if err != nil {
