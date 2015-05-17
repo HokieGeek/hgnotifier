@@ -4,26 +4,33 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"path"
 	"snotify"
 	"strconv"
 )
 
 func main() {
-	base := "/usr"
-	configFile := path.Join(base, "/etc/snotify.config")
+	// Set the log output to file
+	logf, err := os.OpenFile("/tmp/snotify.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		panic(err)
+	}
+	defer logf.Close()
+	log.SetOutput(logf)
+
+	// Load the config file
+	configFile := "/etc/snotify.config"
 	config, err := snotify.LoadConfigFromFile(configFile)
 	if err != nil {
 		log.Panic(err)
 		panic("Could not load config file")
 	}
 
-	// Write out hte pid
+	// Write out the pid
 	pidstr := strconv.Itoa(os.Getpid())
 	ioutil.WriteFile("/tmp/snotifyd.pid", []byte(pidstr), 0644)
 
 	// Add the notifiers path to the config
-	config.NotifiersPath = path.Join(base, "share/snotify/notifiers")
+	config.NotifiersPath = "/usr/share/snotify/notifiers"
 
 	// TODO: this is currently broken as these functions block.
 	// I need for the control listener to communicate back with this dude

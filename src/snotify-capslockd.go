@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
@@ -9,7 +8,6 @@ import (
 	"net/rpc/jsonrpc"
 	"os"
 	"os/exec"
-	"path"
 	"snotify"
 	"strconv"
 	"strings"
@@ -28,7 +26,7 @@ func sendChangedState(client *rpc.Client, state string) {
 		log.Fatal("crap:", err)
 	}
 
-	fmt.Println("sent caps lock state:", state)
+	log.Println("sent caps lock state:", state)
 }
 
 func getCapsLockState() string {
@@ -58,9 +56,16 @@ func pollCapsLockState(stateChange func(state string)) {
 }
 
 func main() {
+	// Set the log output to file
+	logf, err := os.OpenFile("/tmp/snotify.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		panic(err)
+	}
+	defer logf.Close()
+	log.SetOutput(logf)
+
 	// Load the configuration
-	base := "/usr"
-	configFile := path.Join(base, "/etc/snotify.config")
+	configFile := "/etc/snotify.config"
 	config, err := snotify.LoadConfigFromFile(configFile)
 	if err != nil {
 		panic(err)

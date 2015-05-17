@@ -6,7 +6,6 @@ import (
 	"net"
 	"net/rpc/jsonrpc"
 	"os"
-	"path"
 	"snotify"
 	"strconv"
 	"time"
@@ -19,8 +18,7 @@ func main() {
 	}
 
 	// Load the config file for he port
-	base := "/usr"
-	configFile := path.Join(base, "/etc/snotify.config")
+	configFile := "/etc/snotify.config"
 	config, err := snotify.LoadConfigFromFile(configFile)
 	if err != nil {
 		log.Panic(err)
