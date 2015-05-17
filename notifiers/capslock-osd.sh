@@ -5,9 +5,6 @@ echo ""
 date
 echo "$0 $*"
 
-echo "display: $DISPLAY"
-# export DISPLAY=:0.0
-
 id="snotify_capslock"
 
 case $1 in
