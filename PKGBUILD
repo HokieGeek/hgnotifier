@@ -13,7 +13,8 @@ source=('git://github.com/HokieGeek/snotify.git')
 sha1sums=('SKIP')
 
 makedepends=('go')
-optdepends=('conky: Used by the low battery notifier'
+optdepends=('xorg-set: Used by the caps lock daemon to query the state of the caps lock key'
+            'conky: Used by the low battery notifier'
             'dzen2: Used by all of the notifiers, but not required if you write your own'
             'terminus-font: Used by all of the notifiers as the default font given to dzen2'
             'transset-df: Used by all the notifiers to give them transparency')
