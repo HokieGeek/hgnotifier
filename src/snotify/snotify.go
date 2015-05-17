@@ -25,7 +25,6 @@ type SnotifyScheme struct {
 type SnotifyConfig struct {
 	Port          int
 	Scheme        SnotifyScheme
-	Triggers      map[string][]string
 	Notifiers     map[string][]string
 	NotifiersPath string
 }
