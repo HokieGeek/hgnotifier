@@ -1,17 +1,15 @@
 export GOPATH := ${PWD}
 
-install_dir := $(DESTDIR)/$(PREFIX)
-
 all: bin/snotifyd bin/snotify-message bin/snotify-capslockd 
 
 bin/snotifyd: src/snotifyd.go src/snotify/snotify.go
-	go build -o bin/snotifyd src/snotifyd.go 
+	go build -o $@ src/snotifyd.go 
 
 bin/snotify-message: src/snotify-message.go src/snotify/snotify.go
-	go build -o bin/snotify-message src/snotify-message.go
+	go build -o $@ src/snotify-message.go
 
 bin/snotify-capslockd: src/snotify-capslockd.go src/snotify/snotify.go
-	go build -o bin/snotify-capslockd src/snotify-capslockd.go
+	go build -o $@ src/snotify-capslockd.go
 
 clean:
 	rm -rf bin
@@ -49,4 +47,5 @@ uninstall:
 	@echo "Uninstalling triggers"
 	rm -rf $(DESTDIR)$(PREFIX)/share/snotify/triggers/bluetooth-state.sh
 	rm -rf $(DESTDIR)$(PREFIX)/share/snotify/triggers/low-battery.sh
+
 .PHONY: all clean install uninstall
