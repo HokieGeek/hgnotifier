@@ -7,15 +7,26 @@ usage() {
 start() {
     echo "Starting the snotify daemon"
     snotifyd&
+    snotify-capslockd&
 }
 
 stop() {
+    # Kill the snotify daemon
     pidfile=/tmp/snotifyd.pid
     if [ -f ${pidfile} ]; then
         echo "Stopping the snotify daemon"
         kill -9 `cat ${pidfile}`
     else
         echo "Snotify daemon does not seem to be running"
+    fi
+
+    # Kill the snotify capslock daemon
+    pidfile=/tmp/snotify-capslockd.pid
+    if [ -f ${pidfile} ]; then
+        echo "Stopping the capslock daemon"
+        kill -9 `cat ${pidfile}`
+    else
+        echo "Snotify capslock daemon does not seem to be running"
     fi
 }
 

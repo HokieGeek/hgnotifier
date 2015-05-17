@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
+	"os"
 	"os/exec"
 	"path"
 	"snotify"
@@ -63,6 +65,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	// Write out hte pid
+	pidstr := strconv.Itoa(os.Getpid())
+	ioutil.WriteFile("/tmp/snotify-capslockd.pid", []byte(pidstr), 0644)
 
 	address := "localhost:" + strconv.Itoa(config.Port)
 
