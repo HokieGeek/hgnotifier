@@ -12,7 +12,6 @@ import (
 	"path"
 	"runtime"
 	"strconv"
-	"strings"
 	"time"
 )
 
@@ -41,6 +40,9 @@ func LoadConfigFromFile(file string) (SnotifyConfig, error) {
 	if err != nil {
 		panic("Could not unmarshal config")
 	}
+
+	log.Println("Found config:")
+	log.Println(config)
 
 	return config, err
 }
@@ -71,8 +73,7 @@ func (t *Snotify) Notify(notification *Notification, reply *int) error {
 
 func execNotifier(notifier string, arguments []string) {
 	// log.Println("execing ", notifier, arguments)
-	// cmd := exec.Command("/bin/sh", "-c", strings.Join([]string{notifier, arguments}, " ")
-	cmd := exec.Command(notifier, strings.Join(arguments, " ")) // TODO: that join...
+	cmd := exec.Command(notifier, arguments...)
 
 	_, err := cmd.CombinedOutput()
 	if err != nil {
