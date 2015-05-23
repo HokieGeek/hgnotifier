@@ -11,7 +11,6 @@ function createConkyFile() {
 cat << EOF >> $1
 background yes
 out_to_console yes
-out_to_x no
 # Update interval in seconds
 update_interval 1
 
@@ -23,8 +22,9 @@ EOF
 
 conkyfile=/tmp/`basename $0`.conky
 case $1 in
-    on) [ ! -f "${conkyfile}" ] && createConkyFile ${conkyfile}
-        conky -b -c ${conkyfile} | dzen2 -p -title-name ${id} \
+    on) echo ${conkyfile}
+        [ ! -f "${conkyfile}" ] && createConkyFile ${conkyfile}
+        conky -c ${conkyfile} | dzen2 -p -title-name ${id} \
                                          -fn '-*-terminus-bold-r-*-*-15-*-*-*-*-*-*-*' \
                                          -fg "#ff0000" -bg "#1b1d1e" \
                                          -w 75 -y 14 -x -70 \
