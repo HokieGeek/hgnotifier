@@ -27,6 +27,7 @@ install:
 	install -Dm644 notifiers/bt.xbm $(DESTDIR)/usr/share/snotify/notifiers/bt.xbm
 	install -Dm755 notifiers/capslock-osd.sh $(DESTDIR)/usr/share/snotify/notifiers/capslock-osd.sh
 	install -Dm755 notifiers/lowbattery-osd.sh $(DESTDIR)/usr/share/snotify/notifiers/lowbattery-osd.sh
+	install -Dm755 notifiers/popup-osd.sh $(DESTDIR)/usr/share/snotify/notifiers/popup-osd.sh
 	@echo "Installing triggers"
 	install -Dm755 triggers/bluetooth-state.sh $(DESTDIR)/usr/share/snotify/triggers/bluetooth-state.sh
 	install -Dm755 triggers/low-battery.sh $(DESTDIR)/usr/share/snotify/triggers/low-battery.sh
@@ -44,6 +45,7 @@ uninstall:
 	rm -rf $(DESTDIR)/usr/share/snotify/notifiers/bt.xbm
 	rm -rf $(DESTDIR)/usr/share/snotify/notifiers/capslock-osd.sh
 	rm -rf $(DESTDIR)/usr/share/snotify/notifiers/lowbattery-osd.sh
+	rm -rf $(DESTDIR)/usr/share/snotify/notifiers/popup-osd.sh
 	@echo "Uninstalling triggers"
 	rm -rf $(DESTDIR)/usr/share/snotify/triggers/bluetooth-state.sh
 	rm -rf $(DESTDIR)/usr/share/snotify/triggers/low-battery.sh
